@@ -1,0 +1,43 @@
+public class Polygon {
+    private point[] tablica;
+
+    // konstruktor klasy Polygon ustawiajacy w polu obiektu kopię tablicy przekazanej jako argument.
+    // tworzacy nową tablicę zapełnioną kopiami obiektów Point z oryginalnej tablicy.
+    public Polygon(point[] tablica){
+        this.tablica=new point [tablica.length];
+        for(int i =0; i<tablica.length; ++i){
+            this.tablica[i]= new point (tablica[i].getX(), tablica[i].getY());
+        }
+    }
+
+    // Konstruktor kopiujący – głęboka kopia
+    public Polygon (Polygon copy){
+        this.tablica=new point [copy.tablica.length];
+        for(int i=0; i<copy.tablica.length; ++i){
+            point p = copy.tablica[i];
+            this.tablica[i]= new point (p.getX(), p.getY());
+        }
+    }
+
+    public String toString(){
+        String result = "";
+        for(int i=0; i<this.tablica.length; ++i){
+            result += "punkt nr." + (i+1) + "\n" + this.tablica[i] + "\n";
+        }
+        return result;
+    }
+
+    public String toSvg(double offsetX, double offsetY){
+        String result = "<polygon points=\"";
+
+        for (int i=0; i < tablica.length; i++) {
+            result += (tablica[i].getX() + offsetX + "," + (tablica[i]) + offsetY );
+            if( i< tablica.length -1 ){
+                result += " ";
+            }
+        }
+        result += "\" style=\"fill:none;stroke:black;stroke-width:1\" />";
+        return result;
+    }
+
+}
